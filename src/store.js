@@ -1,23 +1,17 @@
-import { createStore } from './redux'
+import { createStore, combineReducers } from './redux'
 
-const rootReducer = (state, action) => {
-  switch(action.type){
-      case 'SET':
-          return{
-              ...state,
-              users: action.users,
-          }
-      default:
-          return state
-  }
-}
+import users, { setUsersActionCreator } from './state/users'
+import events, { setEventsActionCreator } from './state/events'
 
+const rootReducer = combineReducers ({
+    users: users,
+    events: events,
+})
+ 
 export const store = createStore(rootReducer)
 
 store.dispatch({})
-store.dispatch({
-  type: 'SET',
-  users: [],
-})
+store.dispatch(setUsersActionCreator([]))
+store.dispatch(setEventsActionCreator([]))
 
 console.log(store.getState())

@@ -19,3 +19,20 @@ export const createStore = (rootReducer) => {
 
     return store
 }
+
+export const combineReducers = (reducersObj) => {
+    return (state,action) => {
+        return(
+            Object.entries(reducersObj)
+            .reduce(
+                (r, [reducerName, reducer]) => ({
+                    ...r,
+                    [reducerName]: reducer(state[reducerName], action)
+                }),
+                {}
+            )
+        )
+            
+        
+    }
+}
