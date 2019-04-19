@@ -1,7 +1,6 @@
 import { database } from '../firebaseConf'
 
 const SET = 'messages/SET'
-const ADD = 'messages/ADD'
 const NEW_TEXT_CHANGED = 'messages/NEW_TEXT_CHANGED'
 
 const mapObjectToArray = (obj) => (
@@ -14,6 +13,12 @@ const mapObjectToArray = (obj) => (
       ))
   )
 
+export const addMessageAsyncActionCreator = () => (dispatch, getState) => {
+    const state = getState()
+
+    database.ref('jfddl7').push({text: state.messages.newMessageText})
+}
+
 export const startListeningMessagesAsyncActionCreator = () => (dispatch, getState) => {
     database.ref('jfddl7').on(
         'value',
@@ -21,12 +26,11 @@ export const startListeningMessagesAsyncActionCreator = () => (dispatch, getStat
             dispatch(
                 setMessagesActionCreator(
                     mapObjectToArray(snapshot.val())
-                    ) 
-                )
+                ) 
+            )
         }
     )
 }
-
 
 const setMessagesActionCreator = messages => ({
     type: SET,
@@ -36,10 +40,6 @@ const setMessagesActionCreator = messages => ({
 export const newTextChangedActionCreator = newMessageText => ({
     type: NEW_TEXT_CHANGED,
     newMessageText
-})
-
-export const addMessageActionCreator = () => ({
-    type: ADD,
 })
 
 const initialState = {
@@ -53,14 +53,6 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 newMessageText: action.newMessageText,
-            }
-        case ADD:
-            return{
-                ...state,
-                newMessageText: '',
-                messages: state.messages.concat({
-                    text: state.newMessageText,
-                })
             }
         case SET:
             return{

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { newTextChangedActionCreator, addMessageActionCreator } from '../state/messages'
+import { newTextChangedActionCreator, addMessageAsyncActionCreator } from '../state/messages'
 
 const Chat = (props) => (
     <div>
@@ -35,7 +35,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     _newTextChanged: (event) => dispatch(newTextChangedActionCreator(event.target.value)),
-    _addMessage: () => dispatch(addMessageActionCreator()),
+    _addMessage: () => dispatch(addMessageAsyncActionCreator()),
 })
 
 export default connect(
