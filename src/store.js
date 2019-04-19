@@ -1,8 +1,29 @@
-const store = {}
+let state = {}
 
-export const getState = () => store
+const getState = () => state
 
-export const set = (key, value) => store[key] = value
+const dispatch = (newAction) => {
+    const newState = rootReducer(state, newAction)
 
-export const get = (key) => store[key]
+    state = newState
+
+    return newAction
+}
+
+const rootReducer = (state, action) => {
+    switch(action.type){
+        case 'SET':
+            return{
+                ...state,
+                users: action.users,
+            }
+        default:
+            return state
+    }
+}
+
+export const store = {
+    getState,
+    dispatch
+}
 

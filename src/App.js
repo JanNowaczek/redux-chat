@@ -1,8 +1,14 @@
 import React from 'react'
 
-import { set, getState } from './store'
+import { store } from './store'
 
-set('users', [])
+store.dispatch({})
+store.dispatch({
+  type: 'SET',
+  users: [],
+})
+
+console.log(store.getState())
 
 const App = (props) => (
   <div>
