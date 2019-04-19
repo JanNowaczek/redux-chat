@@ -5,18 +5,20 @@ const NEW_TEXT_CHANGED = 'messages/NEW_TEXT_CHANGED'
 
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
-      .map(([key, value]) => (
-        typeof value === 'object' ?
-          {...value, key}
-          :
-          {key, value}
-      ))
-  )
+        .map(([key, value]) => (
+            typeof value === 'object' ?
+                { ...value, key }
+                :
+                { key, value }
+        ))
+)
 
 export const addMessageAsyncActionCreator = () => (dispatch, getState) => {
     const state = getState()
 
-    database.ref('jfddl7').push({text: state.messages.newMessageText})
+    database.ref('jfddl7').push({ text: state.messages.newMessageText })
+
+    dispatch(newTextChangedActionCreator(''))
 }
 
 export const startListeningMessagesAsyncActionCreator = () => (dispatch, getState) => {
@@ -26,7 +28,7 @@ export const startListeningMessagesAsyncActionCreator = () => (dispatch, getStat
             dispatch(
                 setMessagesActionCreator(
                     mapObjectToArray(snapshot.val())
-                ) 
+                )
             )
         }
     )
@@ -50,12 +52,12 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case NEW_TEXT_CHANGED:
-            return{
+            return {
                 ...state,
                 newMessageText: action.newMessageText,
             }
         case SET:
-            return{
+            return {
                 ...state,
                 messages: action.messages,
             }
