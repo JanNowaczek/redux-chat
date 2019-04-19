@@ -1,9 +1,11 @@
 import React from 'react'
 
-const App = () => {
+import Chat from './Chat'
+
+const App = (props) => (
   <div>
-    
+    <Chat />
   </div>
-}
+)
 
 export default App
