@@ -21,18 +21,18 @@ export const createStore = (rootReducer) => {
 }
 
 export const combineReducers = (reducersObj) => {
-    return (state,action) => {
-        return(
+    return (state, action) => {
+        return (
             Object.entries(reducersObj)
-            .reduce(
-                (r, [reducerName, reducer]) => ({
-                    ...r,
-                    [reducerName]: reducer(state[reducerName], action)
-                }),
-                {}
-            )
+                .reduce(
+                    (r, [reducerName, reducer]) => ({
+                        ...r,
+                        [reducerName]: reducer(state[reducerName], action)
+                    }),
+                    {}
+                )
         )
-            
-        
+
+
     }
 }

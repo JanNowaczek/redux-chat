@@ -6,13 +6,13 @@ export const setEventsActionCreator = (events) => ({
 })
 
 export default (state, action) => {
-    switch(action.type){
+    switch (action.type) {
         case SET:
-            return{
+            return {
                 ...state,
                 events: action.events,
             }
         default:
             return state
     }
-  }
+}
